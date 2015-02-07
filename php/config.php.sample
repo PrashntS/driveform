@@ -1,0 +1,6 @@
+<?php
+namespace DriveForm\Config;
+// Google Spreadsheet info
+
+const CLIENT_ID = "vv";
+const CLIENT_SECRET = "lol";

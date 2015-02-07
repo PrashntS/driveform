@@ -1,7 +1,8 @@
 <?php
 namespace DriveForm;
 
-require 'drive.php';
+require 'config.php';
+require 'APIProxy/spreadsheet.php';
 require 'vendor/google-api-php-client/autoload.php';
 
 # Routing Cases
@@ -10,7 +11,8 @@ const BASE = 2;
 
 switch(strtolower(isset($URI[BASE]) ? $URI[BASE] : False)) {
     case 'form':
-        $spreadsheet = new Google\API\SpreadSheet;
+        $spreadsheet = new APIProxy\Google\SpreadSheet(['CLIENT_ID' => "LOL", 'CLIENT_ECRET' => 'h']);
+
         break;
     default:
         echo "Serve Index File here.";
