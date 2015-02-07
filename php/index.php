@@ -10,7 +10,7 @@ const BASE = 2;
 
 switch(strtolower(isset($URI[BASE]) ? $URI[BASE] : False)) {
     case 'form':
-        Google\API\SpreadSheet\init();
+        $spreadsheet = new Google\API\SpreadSheet;
         break;
     default:
         echo "Serve Index File here.";
