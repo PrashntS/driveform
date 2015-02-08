@@ -28,9 +28,11 @@ class Auth {
 class State {
     private static $state;
     private static $STATE_FILE;
+    private static $changed;
 
     function __construct() {
         self::$STATE_FILE = dirname(__FILE__).'/state.json';
+        self::$changed = false;
 
         if (file_exists(self::$STATE_FILE)) {
             $state_file = file_get_contents(self::$STATE_FILE);
@@ -45,8 +47,10 @@ class State {
     }
 
     function __destruct() {
-        $state_json = json_encode(self::$state);
-        file_put_contents(self::$STATE_FILE, $state_json, LOCK_EX);
+        if (self::$changed) {
+            $state_json = json_encode(self::$state);
+            file_put_contents(self::$STATE_FILE, $state_json, LOCK_EX);
+        }
     }
 
     public function __get($key) {
@@ -54,10 +58,17 @@ class State {
     }
 
     public function __set($key, $value) {
+        self::$changed = true;
         self::$state[$key] = $value;
     }
 
     public function __isset($key) {
         return isset(self::$state[$key]);
+    }
+
+    public function __unset($key) {
+        if (array_key_exists($key, self::$state)) {
+            unset(self::$state[$key]);
+        }
     }
 }
