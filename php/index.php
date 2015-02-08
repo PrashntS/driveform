@@ -1,7 +1,7 @@
 <?php
 namespace DriveForm;
 
-require 'config.php';
+require 'delegate.php';
 require 'APIProxy/spreadsheet.php';
 require 'vendor/google-api-php-client/autoload.php';
 
@@ -11,7 +11,8 @@ const BASE = 2;
 
 switch(strtolower(isset($URI[BASE]) ? $URI[BASE] : False)) {
     case 'form':
-        $spreadsheet = new APIProxy\Google\SpreadSheet();
+        //$spreadsheet = new APIProxy\Google\SpreadSheet();
+
 
         break;
     default:

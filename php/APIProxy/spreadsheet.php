@@ -30,8 +30,37 @@ class SpreadSheet {
             'email',
             'profile'));
         $this->service = new \Google_Service_Drive($this->client);
+        $this->create("Test");
+    }
+    public function create($name, $parent = NULL) {
+        $file = new \Google_Service_Drive_DriveFile();
+        $file->setTitle($name);
+        //$file->setDescription($description);
+        //$file->setMimeType($mimeType);
+
+        try {
+            $data = file_get_contents(dirname(dirname(__FILE__)) . "/form_template.csv");
+
+            $createdFile = $this->service->files->insert($file, array(
+                'data' => $data,
+                'mimeType' => "text/csv",
+                'convert' => true));
+
+            // Uncomment the following line to print the File ID
+            print 'File ID: %s' % $createdFile->getId();
+
+            return $createdFile;
+        } catch (Exception $e) {
+            print "An error occurred: " . $e->getMessage();
+        }
     }
     public function init() {
         echo "Contact the SpreadSheet Provider.";
     }
+}
+
+function initClient() {
+    $client = new Google_Client();
+    $client->setApplicationName("DriveForm");
+    
 }
