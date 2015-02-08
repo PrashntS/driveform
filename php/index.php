@@ -16,7 +16,8 @@ const BASE = 2;
 switch(strtolower(isset($URI[BASE]) ? $URI[BASE] : False)) {
     case 'form':
         //$spreadsheet = new APIProxy\Google\SpreadSheet();
-
+        //echo file_get_contents("DriveForm Access-30e4e8b93b86.p12");
+        APIProxy\Google\initClient();
 
         break;
     default:

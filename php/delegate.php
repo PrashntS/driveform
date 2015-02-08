@@ -14,18 +14,21 @@ class Service_Auth {
      * @var String
      */
     private static $AUTH_FILE;
+    private static $AUTH_P12_FILE;
 
     /**
      * Container for the JSON decoded array of Auth Data.
      * @var Mixed
      */
     private static $auth;
+    private static $p12;
 
     /**
      * Constructs the Object, assigns the Auth File location, and Retrieves it.
      */
     function __construct() {
         self::$AUTH_FILE = dirname(__FILE__).'/auth.json';
+        self::$AUTH_P12_FILE = dirname(__FILE__).'/access.p12';
 
         if (file_exists(self::$AUTH_FILE)) {
             $auth_file = file_get_contents(self::$AUTH_FILE);
@@ -37,6 +40,12 @@ class Service_Auth {
         if (!is_array(self::$auth)) {
             throw new \DriveForm\Exception\Invalid_AUTH_File_Exception("Check auth.json.");
         }
+
+        if (file_exists(self::$AUTH_P12_FILE)) {
+            self::$p12 = file_get_contents(self::$AUTH_P12_FILE);
+        } else {
+            throw new \DriveForm\Exception\Missing_P12_Certificate("Obtain the Certificate from your Google Dev. Console.");
+        }
     }
 
     /**
@@ -47,6 +56,10 @@ class Service_Auth {
      */
     public function __get($key) {
         return array_key_exists($key, self::$auth) ? self::$auth[$key] : NULL;
+    }
+
+    public function P12() {
+        return self::$p12;
     }
 }
 

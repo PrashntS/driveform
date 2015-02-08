@@ -60,7 +60,35 @@ class SpreadSheet {
 }
 
 function initClient() {
-    $client = new Google_Client();
+
+    global $auth, $state;
+
+    $client = new \Google_Client();
     $client->setApplicationName("DriveForm");
-    
+
+    if (isset($state->service_token)) {
+        $client->setAccessToken($state->service_token);
+    }
+
+    $cred = new \Google_Auth_AssertionCredentials(
+        $auth->client_email,
+        array('https://www.googleapis.com/auth/books'),
+        $auth->P12()
+    );
+
+    $client->setAssertionCredentials($cred);
+
+    if ($client->getAuth()->isAccessTokenExpired()) {
+        $client->getAuth()->refreshTokenWithAssertion($cred);
+    }
+
+    $state->service_token = $client->getAccessToken();
+
+    $service = new \Google_Service_Books($client);
+
+    $results = $service->volumes->listVolumes('JK Rowling');
+    echo "<h3>Results Of Call:</h3>";
+    foreach ($results as $item) {
+        echo $item['volumeInfo']['title'], "<br /> \n";
+    }
 }

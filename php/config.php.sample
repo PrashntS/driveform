@@ -1,6 +1,0 @@
-<?php
-namespace DriveForm\Config;
-// Google Spreadsheet info
-
-const CLIENT_ID = "Enter the ID here.";
-const CLIENT_SECRET = "Enter the Secret Token here.";
