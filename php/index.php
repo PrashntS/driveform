@@ -11,7 +11,7 @@ const BASE = 2;
 
 switch(strtolower(isset($URI[BASE]) ? $URI[BASE] : False)) {
     case 'form':
-        $spreadsheet = new APIProxy\Google\SpreadSheet(['CLIENT_ID' => "LOL", 'CLIENT_ECRET' => 'h']);
+        $spreadsheet = new APIProxy\Google\SpreadSheet();
 
         break;
     default:
