@@ -2,13 +2,12 @@
 namespace DriveForm;
 
 require 'delegate.php';
-require 'APIProxy/spreadsheet.php';
+require 'exceptions.php';
 require 'vendor/google-api-php-client/autoload.php';
+require 'APIProxy/spreadsheet.php';
 
-
-$auth = new \DriveForm\Delegate\Auth();
+$auth = new \DriveForm\Delegate\Service_Auth();
 $state = new \DriveForm\Delegate\State();
-
 
 # Routing Cases
 $URI = preg_split('/[\/\?]/', preg_replace("/[\/]+/", "/", $_SERVER['REQUEST_URI']));

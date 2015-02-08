@@ -1,7 +1,7 @@
 <?php
 namespace DriveForm\Delegate;
 
-class Auth {
+class Service_Auth {
     private static $AUTH_FILE;
     private static $auth;
 
@@ -37,18 +37,17 @@ class State {
         if (file_exists(self::$STATE_FILE)) {
             $state_file = file_get_contents(self::$STATE_FILE);
             self::$state = json_decode($state_file, true);
-        } else {
-            self::$state = [];
         }
 
-        if (!is_array(self::$state)) {
-            self::$state = [];
+        if (!file_exists(self::$STATE_FILE) || !is_array(self::$state)) {
+            self::$changed = true;
+            self::$state = ["Warning" => "Auto-generated. DO NOT EDIT."];
         }
     }
 
     function __destruct() {
         if (self::$changed) {
-            $state_json = json_encode(self::$state);
+            $state_json = json_encode(self::$state, JSON_PRETTY_PRINT);
             file_put_contents(self::$STATE_FILE, $state_json, LOCK_EX);
         }
     }
