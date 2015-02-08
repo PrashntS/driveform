@@ -1,3 +1,6 @@
 [submodule "php/vendor"]
 	path = php/vendor/google-api-php-client
 	url = git@github.com:google/google-api-php-client.git
+[submodule "php/vendor/slim_framework"]
+	path = php/vendor/slim_framework
+	url = git@github.com:codeguy/Slim.git
