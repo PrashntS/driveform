@@ -2,93 +2,73 @@
 namespace DriveForm\APIProxy\Google;
 
 class SpreadSheet {
-    private $CLIENT_ID;
-    private $CLIENT_SECRET;
-    private $redirect_uri;
     private $client;
     private $service;
 
-    function __construct($opt = NULL) {
-        if (!is_null($opt) &&
-            is_array($opt) &&
-            array_key_exists('CLIENT_ID', $opt) &&
-            array_key_exists('CLIENT_SECRET', $opt) &&
-            array_key_exists('REDIRECT_URI', $opt)) {
-            echo "Override";
-        } else {
-            $this->CLIENT_ID = \DriveForm\Config\CLIENT_ID;
-            $this->CLIENT_SECRET = \DriveForm\Config\CLIENT_SECRET;
-            $this->redirect_uri = \DriveForm\Config\REDIRECT_URI;
-        }
+    function __construct() {
 
-        $this->client = new \Google_Client();
-        $this->client->setClientId($this->CLIENT_ID);
-        $this->client->setClientSecret($this->CLIENT_SECRET);
-        $this->client->setRedirectUri($this->redirect_uri);
-        $this->client->setScopes(array(
-            'https://www.googleapis.com/auth/drive',
-            'email',
-            'profile'));
-        $this->service = new \Google_Service_Drive($this->client);
+        $this->client = new Client();
+
+        $this->service = new \Google_Service_Drive($this->client->scope);
         $this->create("Test");
     }
     public function create($name, $parent = NULL) {
         $file = new \Google_Service_Drive_DriveFile();
         $file->setTitle($name);
-        //$file->setDescription($description);
-        //$file->setMimeType($mimeType);
+        $file->setDescription("DRIVE");
+        $file->setMimeType("text/csv");
 
         try {
             $data = file_get_contents(dirname(dirname(__FILE__)) . "/form_template.csv");
 
             $createdFile = $this->service->files->insert($file, array(
-                'data' => $data,
+                'data' => "LOL,LOLL",
                 'mimeType' => "text/csv",
                 'convert' => true));
 
-            // Uncomment the following line to print the File ID
-            print 'File ID: %s' % $createdFile->getId();
+            echo $createdFile->getId();
 
             return $createdFile;
         } catch (Exception $e) {
             print "An error occurred: " . $e->getMessage();
         }
     }
-    public function init() {
-        echo "Contact the SpreadSheet Provider.";
+}
+
+class Directory {
+    private $directory;
+
+    function __construct() {
+        //
     }
 }
 
-function initClient() {
+class Client {
+    public $scope;
 
-    global $auth, $state;
+    function __construct() {
+        global $_CONFIG, $_AUTH, $_STATE;
 
-    $client = new \Google_Client();
-    $client->setApplicationName("DriveForm");
+        $this->scope = new \Google_Client();
+        $this->scope->setApplicationName($_CONFIG->application_name);
 
-    if (isset($state->service_token)) {
-        $client->setAccessToken($state->service_token);
-    }
+        if (isset($_STATE->service_token)) {
+            $this->scope->setAccessToken($_STATE->service_token);
+        }
 
-    $cred = new \Google_Auth_AssertionCredentials(
-        $auth->client_email,
-        array('https://www.googleapis.com/auth/books'),
-        $auth->P12()
-    );
+        $credentials = new \Google_Auth_AssertionCredentials(
+            $_AUTH->client_email,
+            $_CONFIG->scope,
+            $_AUTH->P12()
+        );
 
-    $client->setAssertionCredentials($cred);
+        $this->scope->setAssertionCredentials($credentials);
 
-    if ($client->getAuth()->isAccessTokenExpired()) {
-        $client->getAuth()->refreshTokenWithAssertion($cred);
-    }
+        if ($this->scope->getAuth()->isAccessTokenExpired()) {
+            # Renew the Access token.
+            $this->scope->getAuth()->refreshTokenWithAssertion($credentials);
+        }
 
-    $state->service_token = $client->getAccessToken();
-
-    $service = new \Google_Service_Books($client);
-
-    $results = $service->volumes->listVolumes('JK Rowling');
-    echo "<h3>Results Of Call:</h3>";
-    foreach ($results as $item) {
-        echo $item['volumeInfo']['title'], "<br /> \n";
+        $_STATE->service_token = $this->scope->getAccessToken();
     }
 }

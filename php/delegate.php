@@ -2,6 +2,45 @@
 namespace DriveForm\Delegate;
 
 /**
+ * Provides access to User configurations.
+ * @author Prashant Sinha <prashant@ducic.ac.in>
+ */
+class Config {
+
+    /**
+     * Container for the JSON decoded array of Config Data.
+     * @var Mixed
+     */
+    private static $config;
+
+    /**
+     * Constructs the Object, and gets the Config Fields.
+     */
+    function __construct() {
+        $config_location = dirname(__FILE__).'/config.json';
+
+        if (file_exists($config_location)) {
+            $file_content = file_get_contents($config_location);
+
+            $config_arr = json_decode($file_content, true);
+
+            if (is_array($config_arr)) {
+                self::$config = $config_arr;
+            } else throw new \DriveForm\Exception\Invalid_Configuration("config.json is not a valid Configuration File.");
+        } else throw new \DriveForm\Exception\Missing_Configuration_File("config.json must be in the App Root.");
+    }
+
+    /**
+     * Getter for the Config Fields.
+     * @param  String $key The field header.
+     * @return Mixed       The field content.
+     */
+    function __get($key) {
+        return array_key_exists($key, self::$config) ? self::$config[$key] : NULL;
+    }
+}
+
+/**
  * Builds an access to the Service Authentication retrieved for Google API.
  * Provides access to Client ID, Client Email, Private Key and Private Key ID.
  * @author Prashant Sinha <prashant@ducic.ac.in>
@@ -9,29 +48,28 @@ namespace DriveForm\Delegate;
 class Service_Auth {
 
     /**
-     * Contains the File Location of the auth.json file. It is assigned dynamically,
-     * however it doesn't check for the existence of the file, it simply assumes.
-     * @var String
-     */
-    private static $AUTH_FILE;
-    private static $AUTH_P12_FILE;
-
-    /**
      * Container for the JSON decoded array of Auth Data.
      * @var Mixed
      */
     private static $auth;
+
+    /**
+     * Container for the Public Key Certificate.
+     * @var Binary
+     */
     private static $p12;
 
     /**
      * Constructs the Object, assigns the Auth File location, and Retrieves it.
      */
     function __construct() {
-        self::$AUTH_FILE = dirname(__FILE__).'/auth.json';
-        self::$AUTH_P12_FILE = dirname(__FILE__).'/access.p12';
+        global $_CONFIG;
 
-        if (file_exists(self::$AUTH_FILE)) {
-            $auth_file = file_get_contents(self::$AUTH_FILE);
+        $auth_file = realpath(dirname(__FILE__).'/'.$_CONFIG->auth_json_file);
+        $auth_p12_file = realpath(dirname(__FILE__).'/'.$_CONFIG->auth_certificate_p12);
+
+        if (file_exists($auth_file)) {
+            $auth_file = file_get_contents($auth_file);
             self::$auth = json_decode($auth_file, true);
         } else {
             throw new \DriveForm\Exception\Missing_AUTH_File_Exception("Check auth.json.");
@@ -41,8 +79,8 @@ class Service_Auth {
             throw new \DriveForm\Exception\Invalid_AUTH_File_Exception("Check auth.json.");
         }
 
-        if (file_exists(self::$AUTH_P12_FILE)) {
-            self::$p12 = file_get_contents(self::$AUTH_P12_FILE);
+        if (file_exists($auth_p12_file)) {
+            self::$p12 = file_get_contents($auth_p12_file);
         } else {
             throw new \DriveForm\Exception\Missing_P12_Certificate("Obtain the Certificate from your Google Dev. Console.");
         }
@@ -58,6 +96,9 @@ class Service_Auth {
         return array_key_exists($key, self::$auth) ? self::$auth[$key] : NULL;
     }
 
+    /**
+     * Getter for the Public Key file content.
+     */
     public function P12() {
         return self::$p12;
     }
