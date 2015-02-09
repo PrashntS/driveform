@@ -6,12 +6,15 @@ class SpreadSheet {
     private $service;
 
     function __construct() {
-
         $this->client = new Client();
 
         $this->service = new \Google_Service_Drive($this->client->scope);
-        $this->create("Test");
+        //$this->create("Test");
+        $this->get_file_by_id("0B77hn52Njlz9am9JSkxIdEVtdG8");
     }
+
+    #public function insert($name, $parent, )
+
     public function create($name, $parent = NULL) {
         $file = new \Google_Service_Drive_DriveFile();
         $file->setTitle($name);
@@ -21,7 +24,9 @@ class SpreadSheet {
         try {
             $data = file_get_contents(dirname(dirname(__FILE__)) . "/form_template.csv");
 
-            $createdFile = $this->service->files->insert($file, array(
+            $createdFile = $this->service->files->insert(
+                $file,
+                array(
                 'data' => "LOL,LOLL",
                 'mimeType' => "text/csv",
                 'convert' => true));
@@ -33,6 +38,13 @@ class SpreadSheet {
             print "An error occurred: " . $e->getMessage();
         }
     }
+
+    public function get_file_by_id($id) {
+        $file = $this->service->files->get($id);
+
+        echo $file->getTitle();
+    }
+
 }
 
 class Directory {
