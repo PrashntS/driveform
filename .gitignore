@@ -55,5 +55,6 @@ target/
 
 config.php
 auth.json
+state.json
 
 *.p12
