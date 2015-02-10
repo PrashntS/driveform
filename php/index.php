@@ -1,8 +1,8 @@
 <?php
 namespace DriveForm;
 
-require 'delegate.php';
-require 'exceptions.php';
+require 'lib/delegate.php';
+require 'lib/exceptions.php';
 require 'vendor/google-api-php-client/autoload.php';
 require 'vendor/slim_framework/Slim/Slim.php';
 require 'lib/spreadsheet.php';
@@ -22,8 +22,8 @@ $_APP->get('/', function () {
 */
 
 $_APP->get('/', function () {
-    # Serving the static files.
-    
+    # Serving the static files
+
 });
 
 $_APP->run();

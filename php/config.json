@@ -1,6 +1,7 @@
 {
     "application_name": "DriveForm",
     "scope": ["https://www.googleapis.com/auth/drive"],
+    "schema": "form.json",
     "dir_name": "DriveForm",
     "spreadsheet": "Autonomi_Registrations.xls",
     "auth_json_file": "private/auth.json",
