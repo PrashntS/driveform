@@ -1,0 +1,90 @@
+[
+    {
+        "header": "Name",
+        "label": "Your Name",
+        "placeholder": "Nico Hades",
+        "required": true,
+        "type": "text",
+        "validation": "text"
+    },
+    {
+        "header": "Email",
+        "label": "Your Email ID",
+        "placeholder": "leo@valdez.com",
+        "required": true,
+        "type": "email",
+        "validation": "email"
+    },
+    {
+        "header": "Contact",
+        "label": "Your Contact Number",
+        "placeholder": "+91 999 999 9999",
+        "required": true,
+        "type": "text",
+        "validation": "tel"
+    },
+    {
+        "header": "College",
+        "label": "Name of College or Institution",
+        "placeholder": "Camp Half Blood",
+        "required": true,
+        "type": "text",
+        "validation": "text"
+    },
+    {
+        "header": "Course",
+        "label": "Course or Specialization",
+        "placeholder": "Sorcerer",
+        "required": true,
+        "type": "text",
+        "validation": "text"
+    },
+    {
+        "header": "Year",
+        "label": "Course Year",
+        "placeholder": "Please select",
+        "required": true,
+        "options": {
+            "First Year": 1,
+            "Second Year": 2,
+            "Third Year": 3,
+            "Fourth Year": 4
+        },
+        "type": "select"
+    },
+    {
+        "header": "Slot",
+        "label": "Preferred Slot for BootCamp",
+        "placeholder": "Please select",
+        "required": true,
+        "options": {
+            "BootCamp 1: 28 Feb - 1 March": 1,
+            "BootCamp 2: 13 - 14 March": 2
+        },
+        "type": "select",
+        "validation": "url",
+        "target": "/php/user/slotinfo/"
+    },
+    {
+        "header": "DD",
+        "label": "DD Number",
+        "placeholder": "DD Number can be found on the DD.",
+        "required": true,
+        "type": "number",
+        "validation": "number"
+    },
+    {
+        "header": "Bank",
+        "label": "Issuer",
+        "placeholder": "Bank and Branch",
+        "required": true,
+        "type": "text",
+        "validation": "text"
+    },
+    {
+        "header": "DD_URI",
+        "label": "Upload the DD",
+        "type": "upload",
+        "target": "/php/target"
+    }
+]

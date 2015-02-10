@@ -14,10 +14,16 @@ $_AUTH   = new \DriveForm\Delegate\Service_Auth();
 $_STATE  = new \DriveForm\Delegate\State();
 $_APP    = new \Slim\Slim();
 
-
+/*
 $_APP->get('/', function () {
     echo "Index Route";
     $a = new \DriveForm\APIProxy\Google\Spreadsheet();
 });
+*/
+
+$_APP->get('/', function () {
+    # Serving the static files.
+    
+})
 
 $_APP->run();
