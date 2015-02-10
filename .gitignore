@@ -1,5 +1,6 @@
 
 private/
+user/
 
 config.php
 auth.json

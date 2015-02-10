@@ -6,5 +6,6 @@
     "spreadsheet": "Autonomi_Registrations.xls",
     "auth_json_file": "private/auth.json",
     "auth_certificate_p12": "private/access.p12",
-    "sql": "user/database.sqlite"
+    "sql": "user/database.sqlite",
+    "user_uploads": "user"
 }

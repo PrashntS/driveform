@@ -7,6 +7,7 @@ require 'vendor/google-api-php-client/autoload.php';
 require 'vendor/slim_framework/Slim/Slim.php';
 require 'lib/database.php';
 require 'lib/util.php';
+require 'lib/actions.php';
 
 \Slim\Slim::registerAutoloader();
 
@@ -35,8 +36,11 @@ $_APP->get('/setup', function () {
 
 $_APP->post('/api/upload', function() {
     # Upload the DD here, to NOT to Google Drive. Upload it in the folder.
-    var_dump($_FILES);
-    var_dump(file_get_contents($_FILES['fileUpload']['tmp_name']));
+    //var_dump($_FILES);
+    var_dump(Action\Model::register());
+    //var_dump(file_get_contents($_FILES['fileUpload']['tmp_name']));
 });
+
+
 
 $_APP->run();
