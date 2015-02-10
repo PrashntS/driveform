@@ -10,7 +10,13 @@ class SpreadSheet {
 
         $this->service = new \Google_Service_Drive($this->client->scope);
         //$this->create("Test");
-        $this->get_file_by_id("0B77hn52Njlz9am9JSkxIdEVtdG8");
+        $files = $this->service->files->listFiles();
+
+        echo "<pre>";
+        var_dump(json_encode($files->getItems(), JSON_PRETTY_PRINT));
+
+        //$result = array_merge($result, $files->getItems());
+        //$this->get_file_by_id("0B77hn52Njlz9am9JSkxIdEVtdG8");
     }
 
     #public function insert($name, $parent, )
@@ -49,8 +55,46 @@ class SpreadSheet {
 
 class Directory {
     private $directory;
+    private static $client;
+    private static $service;
 
-    function __construct() {
+    public static function setup() {
+
+    }
+
+    public static function create() {
+        global $_CONFIG, $_STATE;
+
+        self::$client = new Client();
+
+        self::$service = new \Google_Service_Drive(self::$client->scope);
+
+        $file = new \Google_Service_Drive_DriveFile();
+        $file->setTitle($_CONFIG->dir_name);
+        $file->setMimeType("application/vnd.google-apps.folder");
+
+        $parent = new \Google_Service_Drive_ParentReference();
+        $parent->setId("0BwvbUtDRRjGJd2c2cWZKc09YUUU");
+        $file->setParents(array($parent));
+
+        try {
+            $createdFile = self::$service->files->insert(
+                $file,
+                ['mimeType' => "application/vnd.google-apps.folder"]);
+
+            echo $createdFile->getId();
+
+            $_STATE->dir_id = $createdFile->getId();
+
+            return $createdFile;
+        } catch (Exception $e) {
+            print "An error occurred: " . $e->getMessage();
+        }
+    }
+}
+
+class Util {
+    public static function upload() {
         //
     }
 }

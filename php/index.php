@@ -5,7 +5,8 @@ require 'lib/delegate.php';
 require 'lib/exceptions.php';
 require 'vendor/google-api-php-client/autoload.php';
 require 'vendor/slim_framework/Slim/Slim.php';
-require 'lib/spreadsheet.php';
+require 'lib/database.php';
+require 'lib/util.php';
 
 \Slim\Slim::registerAutoloader();
 
@@ -23,7 +24,19 @@ $_APP->get('/', function () {
 
 $_APP->get('/', function () {
     # Serving the static files
+    
+    //
+    //APIProxy\Google\Directory::create();
+});
 
+$_APP->get('/setup', function () {
+    Util\Setup::Database();
+});
+
+$_APP->post('/api/upload', function() {
+    # Upload the DD here, to NOT to Google Drive. Upload it in the folder.
+    var_dump($_FILES);
+    var_dump(file_get_contents($_FILES['fileUpload']['tmp_name']));
 });
 
 $_APP->run();

@@ -5,5 +5,6 @@
     "dir_name": "DriveForm",
     "spreadsheet": "Autonomi_Registrations.xls",
     "auth_json_file": "private/auth.json",
-    "auth_certificate_p12": "private/access.p12"
+    "auth_certificate_p12": "private/access.p12",
+    "sql": "user/database.sqlite"
 }
