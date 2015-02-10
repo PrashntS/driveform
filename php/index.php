@@ -5,7 +5,7 @@ require 'delegate.php';
 require 'exceptions.php';
 require 'vendor/google-api-php-client/autoload.php';
 require 'vendor/slim_framework/Slim/Slim.php';
-require 'APIProxy/spreadsheet.php';
+require 'lib/spreadsheet.php';
 
 \Slim\Slim::registerAutoloader();
 
@@ -24,6 +24,6 @@ $_APP->get('/', function () {
 $_APP->get('/', function () {
     # Serving the static files.
     
-})
+});
 
 $_APP->run();

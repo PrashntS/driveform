@@ -3,6 +3,6 @@
     "scope": ["https://www.googleapis.com/auth/drive"],
     "dir_name": "DriveForm",
     "spreadsheet": "Autonomi_Registrations.xls",
-    "auth_json_file": "auth.json",
-    "auth_certificate_p12": "access.p12"
+    "auth_json_file": "private/auth.json",
+    "auth_certificate_p12": "private/access.p12"
 }
