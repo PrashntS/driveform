@@ -45,7 +45,6 @@ class Client {
         try {
             $this->DbHandle->beginTransaction();
             $Binding = $this->DbHandle->prepare($query);
-            var_dump($this->DbHandle->prepare($query));
             $Binding->execute($Arr);
             $this->DbHandle->Commit();
             return ($Binding);

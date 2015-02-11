@@ -17,7 +17,8 @@ class Setup {
             $Handle = new \DriveForm\Database\Client();
             $Handle->query(
                 "CREATE TABLE workshop_registrations (
-                    Id int AUTO_INCREMENT PRIMARY KEY,
+                    ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                    Time_Stamp varchar(128),
                     Workshop varchar(128),
                     Name varchar(128),
                     Email varchar(128),
@@ -27,6 +28,7 @@ class Setup {
                     Year varchar(128),
                     DD varchar(128),
                     Bank varchar(128),
+                    Confirmed varchar(128),
                     DD_URI varchar(128));");
             $_STATE->table_setup = true;
             return true;
@@ -38,11 +40,11 @@ class Validate {
     function Alphanumeric($Candidate, $LengthMin = 0, $LengthMax = 0) {
         $PatternTail = "";
         
-        if ($LengthMin >= 0 && $LengthMax > $LengthMin) $PatternTail = "\{$LengthMin, $LengthMax}";
+        if ($LengthMin >= 0 && $LengthMax > $LengthMin) $PatternTail = "{".$LengthMin.",".$LengthMax."}";
         if ($LengthMin == 0 && $LengthMax == 0) $PatternTail = "*"; 
-        if ($LengthMin > 0 && $LengthMax == 0) $PatternTail = "\{$LengthMin,}";
+        if ($LengthMin > 0 && $LengthMax == 0) $PatternTail = "{".$LengthMin.",}";
         
-        $Pattern = "/^[A-Za-z0-9_~\.-]$PatternTail$/";
+        $Pattern = "/^[A-Za-z0-9_~\.\- ]$PatternTail$/";
 
         return (bool)(preg_match($Pattern, $Candidate));
     }

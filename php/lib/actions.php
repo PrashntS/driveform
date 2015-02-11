@@ -4,15 +4,14 @@ namespace DriveForm\Action;
 class Model {
     public static function register() {
 
-        $query = "INSERT INTO workshop_registrations SET(Workshop, Name, Email, Contact, College, Course, Year, DD, Bank, DD_URI) VALUES(:Workshop, :Name, :Email, :Contact, :College, :Course, :Year, :DD, :Bank, :DD_URI)";
+        $query = "INSERT INTO workshop_registrations (Workshop, Time_Stamp, Name, Email, Contact, College, Course, Year, DD, Bank, DD_URI, Confirmed) VALUES(:Workshop, :Time_Stamp, :Name, :Email, :Contact, :College, :Course, :Year, :DD, :Bank, :DD_URI, :Confirmed)";
 
-        # TODO: Check if slot available.
-
-        # Validate.
         $Valid = [];
         $Valid['Workshop'] = in_array($_POST['Workshop'], ["3D1", "3D2", "RB1", "RB2"]);
+        $Valid['Registration_Filled'] = self::count_registrations($_POST['Workshop'])[2];
         $Valid['Name'] = \DriveForm\Util\Validate::Alphanumeric($_POST['Name'], 2);
         $Valid['Email'] = \DriveForm\Util\Validate::Email($_POST['Email']);
+        $Valid['Email_Exists'] = self::check_email($_POST['Email']);
         $Valid['Contact'] = \DriveForm\Util\Validate::Alphanumeric($_POST['Contact'], 8, 12);
         $Valid['College'] = \DriveForm\Util\Validate::Alphanumeric($_POST['College'], 2);
         $Valid['Course'] = \DriveForm\Util\Validate::Alphanumeric($_POST['Course'], 2);
@@ -20,8 +19,6 @@ class Model {
         $Valid['DD'] = \DriveForm\Util\Validate::Alphanumeric($_POST['DD'], 3);
         $Valid['Bank'] = \DriveForm\Util\Validate::Alphanumeric($_POST['Bank'], 3);
 
-        # Upload the file.
-        
         $return = ["error" => false, "error_field" => []];
 
         foreach ($Valid as $field => $value) {
@@ -37,17 +34,19 @@ class Model {
 
         $upload = self::upload("DD_Img");
 
-        if ($upload[0]) {
+        if (!$upload[0]) {
             $return["error"] = true;
             $return["error_field"] = ["DD_Img"];
+            return $return;
         }
 
         # Okay. Insert.
         
         $Handle = new \DriveForm\Database\Client();
 
-        $success = $Handle->query($query, array(
+        $insert = $Handle->query($query, [
             'Workshop' => $_POST['Workshop'],
+            'Time_Stamp' => time(),
             'Name' => $_POST['Name'],
             'Email' => $_POST['Email'],
             'Contact' => $_POST['Contact'],
@@ -56,19 +55,35 @@ class Model {
             'Year' => $_POST['Year'],
             'DD' => $_POST['DD'],
             'Bank' => $_POST['Bank'],
-            'DD_URI' => $upload[0]))->errorCode() === 0;
+            'DD_URI' => $upload[1]]);
 
-        if ($success) {
+        if ((int)$insert->errorCode()[0] == 0) {
             return $return;
         } else {
             $return["error"] = true;
             $return["error_field"] = ["Server Error"];
+            return $return;
         }
+    }
+
+    public static function count_registrations($id) {
+        $query = "SELECT count(*) AS reg_count FROM workshop_registrations WHERE Workshop = :Workshop";
+        $Handle = new \DriveForm\Database\Client();
+        $result = $Handle->query($query, ['Workshop' => $id])->fetch(\PDO::FETCH_ASSOC);
+        $count = (int)$result['reg_count'];
+        return [$count, 40 - $count, $count < 40];
+    }
+
+    public static function check_email($email) {
+        $query = "SELECT count(*) AS email_count FROM workshop_registrations WHERE Email = :Email";
+        $Handle = new \DriveForm\Database\Client();
+        $result = $Handle->query($query, ['Email' => $email])->fetch(\PDO::FETCH_ASSOC);
+        $count = (int)$result['email_count'];
+        return $count === 0;
     }
 
     public static function upload($id) {
         global $_CONFIG;
-        # See if ID exists. If yes, check if it is a valid img. If it is, okay.
         $allowed = ["image/jpeg", "image/png", "image/gif", "image/tiff"];
         if (isset($_FILES[$id]) &&
             $_FILES[$id]["error"] === 0 &&
@@ -78,9 +93,8 @@ class Model {
             $file = file_get_contents($_FILES[$id]["tmp_name"]);
             $file_name = uniqid("upload_".time()."_").'.'.explode('/', $_FILES[$id]["type"])[1];
             $file_loc = realpath($_CONFIG->config_dir() . '/' . $_CONFIG->user_uploads) . '/' . $file_name; 
-            echo $file_loc;
             file_put_contents($file_loc, $file);
-            return [false, $file_name];
-        } else return [true];
+            return [true, $file_name];
+        } else return [false];
     }
 }
