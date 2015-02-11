@@ -3,6 +3,7 @@
 html,body
     margin: 0
     position: relative
+    //overflow: hidden
 
 section
     min-height: 100vh
@@ -59,6 +60,10 @@ section
         &:hover
             background: rgba(0, 0, 0, 0.9)
             transition: background 0.4s
+
+    input[type="file"]
+        margin-bottom: 20px
+        margin-top: 10px
 
     button[type="submit"]
         float: left
