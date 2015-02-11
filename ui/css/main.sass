@@ -1,0 +1,99 @@
+@import "fonts.scss"
+
+html,body
+    margin: 0
+    position: relative
+
+section
+    min-height: 100vh
+    position: relative
+
+    &>div
+        position: absolute
+        top: 50%
+        transform: translateY(-50%)
+        width: 80%
+        padding: 0 20px
+
+        @media(min-width: 548px)
+            font-size: 120%
+            width: 60%
+            padding: 0 10%
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+        padding: 10px
+        margin: 0 0 10px 0
+        min-width: 100%
+        font-size: 25px
+        font-family: Raleway
+        border: 0
+        background: rgba(0,0,0, 0.3)
+        color: inherit
+        box-sizing: border-box
+        -moz-box-sizing: border-box
+        -webkit-box-sizing: border-box
+        &:active, &:focus
+            outline: none
+            border: none
+        &:hover, &:active, &:focus
+            background: rgba(0, 0, 0, 0.5)
+            transition: background 0.4s
+
+    button[data-type="nav"],
+    button[type="submit"]
+        font-size: 16px
+        font-family: Raleway
+        color: inherit
+        background: rgba(0, 0, 0, 0.3)
+        border: none
+        padding: 5px 20px
+        float: right
+        cursor: pointer
+
+        &:active, &:focus
+            outline: none
+            border: none
+
+        &:hover
+            background: rgba(0, 0, 0, 0.9)
+            transition: background 0.4s
+
+    button[type="submit"]
+        float: left
+        padding: 10px 20px
+        font-size: 20px
+
+    select
+        font-size: 20px
+        border: none
+        padding: 5px
+        background: rgba(0,0,0, 0.3)
+        font-family: Raleway
+        color: #FFFFFF
+
+    span
+        opacity: .6
+
+    &#one
+        background: #1A237E
+        background: url(/img/bg-hatches.png) fixed
+        color: #FFFFFF
+    &#two
+        background: #880E4F
+        color: #FFFFFF
+    &#three
+        background: #1A237E
+        color: #FFFFFF
+    &#four
+        background: #006064
+        color: #FFFFFF
+    &#five
+        background: #311B92
+        color: #FFFFFF
+    &.six
+        background: url(/img/treeline.png) fixed
+        background: green
+
+    font-family: Raleway

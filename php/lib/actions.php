@@ -4,7 +4,7 @@ namespace DriveForm\Action;
 class Model {
     public static function register() {
 
-        $query = "INSERT INTO workshop_registrations (Workshop, Time_Stamp, Name, Email, Contact, College, Course, Year, DD, Bank, DD_URI, Confirmed) VALUES(:Workshop, :Time_Stamp, :Name, :Email, :Contact, :College, :Course, :Year, :DD, :Bank, :DD_URI, :Confirmed)";
+        $query = "INSERT INTO workshop_registrations (Workshop, Time_Stamp, Name, Email, Contact, College, Course, DD, Bank, DD_URI, Confirmed) VALUES(:Workshop, :Time_Stamp, :Name, :Email, :Contact, :College, :Course, :DD, :Bank, :DD_URI, :Confirmed)";
 
         $Valid = [];
         $Valid['Workshop'] = in_array($_POST['Workshop'], ["3D1", "3D2", "RB1", "RB2"]);
@@ -15,7 +15,6 @@ class Model {
         $Valid['Contact'] = \DriveForm\Util\Validate::Alphanumeric($_POST['Contact'], 8, 12);
         $Valid['College'] = \DriveForm\Util\Validate::Alphanumeric($_POST['College'], 2);
         $Valid['Course'] = \DriveForm\Util\Validate::Alphanumeric($_POST['Course'], 2);
-        $Valid['Year'] = \DriveForm\Util\Validate::Alphanumeric($_POST['Year'], 2);
         $Valid['DD'] = \DriveForm\Util\Validate::Alphanumeric($_POST['DD'], 3);
         $Valid['Bank'] = \DriveForm\Util\Validate::Alphanumeric($_POST['Bank'], 3);
 
@@ -52,7 +51,6 @@ class Model {
             'Contact' => $_POST['Contact'],
             'College' => $_POST['College'],
             'Course' => $_POST['Course'],
-            'Year' => $_POST['Year'],
             'DD' => $_POST['DD'],
             'Bank' => $_POST['Bank'],
             'DD_URI' => $upload[1]]);

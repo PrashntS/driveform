@@ -25,7 +25,6 @@ class Setup {
                     Contact varchar(128),
                     College varchar(128),
                     Course varchar(128),
-                    Year varchar(128),
                     DD varchar(128),
                     Bank varchar(128),
                     Confirmed varchar(128),

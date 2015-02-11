@@ -16,18 +16,8 @@ $_AUTH   = new \DriveForm\Delegate\Service_Auth();
 $_STATE  = new \DriveForm\Delegate\State();
 $_APP    = new \Slim\Slim();
 
-/*
 $_APP->get('/', function () {
-    echo "Index Route";
-    $a = new \DriveForm\APIProxy\Google\Spreadsheet();
-});
-*/
 
-$_APP->get('/', function () {
-    # Serving the static files
-    var_dump(Action\Model::validate_registration("s"));
-    //
-    //APIProxy\Google\Directory::create();
 });
 
 $_APP->get('/setup', function () {
@@ -41,15 +31,15 @@ $_APP->post('/api/register', function() use($_APP) {
     } else {
         $_APP->response->setStatus(202);
     }
+    $_APP->response->headers->set('Content-Type', 'application/json');
     $_APP->response->setBody(json_encode($q));
 });
 
 $_APP->get('/api/count/:id', function($id) use($_APP) {
     $q = Action\Model::count_registrations($id);
         $Handle = new \DriveForm\Database\Client();
-    echo "<pre>";
-    echo json_encode($Handle->query("SELECT * FROM workshop_registrations")->fetchAll(\PDO::FETCH_ASSOC), JSON_PRETTY_PRINT);
     $_APP->response->setStatus(200);
+    $_APP->response->headers->set('Content-Type', 'application/json');
     $_APP->response->setBody(json_encode([
         "booked" => $q[0],
         "remains" => $q[1],

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Register</title>
+    <meta name="description" content="">
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="canonical" href="http://prashnts.in/">
+</head>
+<body>
+    <section id="one">
+        <div>
+            <h1>Registration Form</h1>
+            <h2>Please choose the Workshop you wish to register into</h2>
+            <ul>
+                <li>
+                    <p>Robotics BootCamp</p>
+                    <p>Slot 1: 28 Feb. - 1 Mar.</p>
+                </li>
+                <li>
+                    <p>Robotics BootCamp</p>
+                    <p>Slot 2: 13 Mar. - 14 Mar.</p>
+                </li>
+                <li>
+                    <p>3D Printing Workshop</p>
+                    <p>Slot 1: 28 Feb - 1 Mar.</p>
+                </li>
+                <li>
+                    <p>3D Printing Workshop</p>
+                    <p>Slot 2: 13 Mar. - 14 Mar.</p>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section id="two">
+        <div>
+            <h2>What is your Name?</h2>
+            <input type="text" name="Name" required placeholder="Nico Hades">
+            <button data-type="nav" data-target="three">NEXT</button>
+        </div>
+    </section>
+    <section id="three">
+        <div>
+            <h2>How do we contact you?</h2>
+            <span>Email ID</span>
+            <input type="email" name="Email" required placeholder="leo@valdez.com">
+            <span>Contact Number</span>
+            <input type="tel" name="Contact" required placeholder="999 999 9999">
+            <button data-type="nav" data-target="three">NEXT</button>
+            <button data-type="nav" data-target="three">PREVIOUS</button>
+        </div>
+    </section>
+    <section id="four">
+        <div>
+            <h2>What is your Institution/College?</h2>
+            <span>College</span>
+            <input type="text" name="College" required placeholder="Camp Half Blood">
+            <span>Course/Specialization</span>
+            <input type="text" name="Course" required placeholder="Sorcerer">
+            <button data-type="nav" data-target="three">NEXT</button>
+            <button data-type="nav" data-target="three">PREVIOUS</button>
+        </div>
+    </section>
+    <section id="five">
+        <div>
+            <h2>Please give us the Payment Details</h2>
+            <input type="text" name="DD" required placeholder="Demand Draft Number">
+            <input type="text" name="Bank" required placeholder="Issuing Bank">
+            
+            <button data-type="nav" data-target="three">PREVIOUS</button>
+            <button type="submit" data-target="three">SUBMIT</button>
+
+        </div>
+    </section>
+</body>
+</html>
