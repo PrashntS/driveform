@@ -195,6 +195,11 @@ section {
     background: url(/img/treeline.png) fixed;
     background: green; }
 
+a {
+  font-family: Raleway;
+  color: #FFFFFF;
+  color: inherit; }
+
 ol.unmarked, ul.unmarked {
   list-style-type: none;
   padding: 0; }
