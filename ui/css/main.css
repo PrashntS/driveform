@@ -75,8 +75,11 @@
   unicode-range: u+0000-00ff, u+0131, u+0152-0153, u+02c6, u+02da, u+02dc, u+2000-206f, u+2074, u+20ac, u+2212, u+2215, u+e0ff, u+effd, u+f000; }
 html, body {
   margin: 0;
-  position: relative; }
-
+  position: relative;
+  overflow: hidden; }
+@media(max-width: 548px) {
+  html, body {
+    overflow: auto; } }
 section {
   min-height: 100vh;
   position: relative;
@@ -122,7 +125,7 @@ section {
     section input[type="email"]:focus {
       background: rgba(0, 0, 0, 0.5);
       transition: background 0.4s; }
-  section button[data-type="nav"],
+  section div[data-type="nav"],
   section button[type="submit"] {
     font-size: 16px;
     font-family: Raleway;
@@ -132,35 +135,50 @@ section {
     padding: 5px 20px;
     float: right;
     cursor: pointer; }
-    section button[data-type="nav"]:active, section button[data-type="nav"]:focus,
+    section div[data-type="nav"]:active, section div[data-type="nav"]:focus,
     section button[type="submit"]:active,
     section button[type="submit"]:focus {
       outline: none;
       border: none; }
-    section button[data-type="nav"]:hover,
+    section div[data-type="nav"]:hover,
     section button[type="submit"]:hover {
       background: rgba(0, 0, 0, 0.9);
       transition: background 0.4s; }
+    section div[data-type="nav"].disabled,
+    section button[type="submit"].disabled {
+      background: rgba(0, 0, 0, 0.1);
+      color: #37474F; }
   section input[type="file"] {
     margin-bottom: 20px;
     margin-top: 10px; }
+  section input[data-hidden] {
+    position: absolute;
+    left: -10000000px; }
   section button[type="submit"] {
     float: left;
     padding: 10px 20px;
     font-size: 20px; }
-  section select {
-    font-size: 20px;
-    border: none;
-    padding: 5px;
-    background: rgba(0, 0, 0, 0.3);
-    font-family: Raleway;
-    color: #FFFFFF; }
+  section ul[data-type="select"] li img {
+    opacity: 0.6;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border 0.3s; }
+    section ul[data-type="select"] li img.selected {
+      border: 2px solid #42A5F5;
+      opacity: 1;
+      border-radius: 8px; }
+    section ul[data-type="select"] li img:hover {
+      opacity: 1;
+      transition: opacity 0.3s; }
   section span {
     opacity: 0.6; }
   section#one {
     background: #1A237E;
     background: url(/img/bg-hatches.png) fixed;
     color: #FFFFFF; }
+    section#one img.logo {
+      height: 60px;
+      margin-right: 10px; }
   section#two {
     background: #880E4F;
     color: #FFFFFF; }
@@ -176,5 +194,23 @@ section {
   section.six {
     background: url(/img/treeline.png) fixed;
     background: green; }
+
+ol.unmarked, ul.unmarked {
+  list-style-type: none;
+  padding: 0; }
+ol.inline, ul.inline {
+  list-style-type: none;
+  padding: 0;
+  display: inline-block; }
+  ol.inline li, ul.inline li {
+    display: inline; }
+  ol.inline.lg li, ul.inline.lg li {
+    margin-right: 20px; }
+    ol.inline.lg li:last-of-type, ul.inline.lg li:last-of-type {
+      margin-right: 0px; }
+  ol.inline.csv li:after, ul.inline.csv li:after {
+    content: ","; }
+  ol.inline.csv li:last-of-type:after, ul.inline.csv li:last-of-type:after {
+    content: ""; }
 
 /*# sourceMappingURL=main.css.map */

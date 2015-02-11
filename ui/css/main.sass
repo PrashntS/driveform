@@ -3,7 +3,10 @@
 html,body
     margin: 0
     position: relative
-    //overflow: hidden
+    overflow: hidden
+    @media(max-width: 548px)
+        overflow: auto
+
 
 section
     min-height: 100vh
@@ -42,7 +45,7 @@ section
             background: rgba(0, 0, 0, 0.5)
             transition: background 0.4s
 
-    button[data-type="nav"],
+    div[data-type="nav"],
     button[type="submit"]
         font-size: 16px
         font-family: Raleway
@@ -61,27 +64,47 @@ section
             background: rgba(0, 0, 0, 0.9)
             transition: background 0.4s
 
+        &.disabled
+            background: rgba(0, 0, 0, 0.1)
+            color: #37474F
+
     input[type="file"]
         margin-bottom: 20px
         margin-top: 10px
+
+    input[data-hidden]
+        position: absolute
+        left: -10000000px
 
     button[type="submit"]
         float: left
         padding: 10px 20px
         font-size: 20px
 
-    select
-        font-size: 20px
-        border: none
-        padding: 5px
-        background: rgba(0,0,0, 0.3)
-        font-family: Raleway
-        color: #FFFFFF
+    ul[data-type="select"]
+        li
+            img
+                opacity: 0.6
+                cursor: pointer
+                border: 2px solid transparent
+                transition: border 0.3s
+
+                &.selected
+                    border: 2px solid #42A5F5
+                    opacity: 1
+                    border-radius: 8px
+
+                &:hover
+                    opacity: 1
+                    transition: opacity 0.3s
 
     span
         opacity: .6
 
     &#one
+        img.logo
+            height: 60px
+            margin-right: 10px
         background: #1A237E
         background: url(/img/bg-hatches.png) fixed
         color: #FFFFFF
@@ -102,3 +125,27 @@ section
         background: green
 
     font-family: Raleway
+
+ol, ul
+    &.unmarked
+        list-style-type: none
+        padding: 0
+
+    &.inline
+        list-style-type: none
+        padding: 0
+        display: inline-block
+
+        li
+            display: inline
+
+        &.lg
+            li
+                &:last-of-type
+                    margin-right: 0px
+                margin-right: 20px
+        &.csv
+            li:after
+                content: ","
+            li:last-of-type:after
+                content: ""
