@@ -55,6 +55,9 @@ var app = {
         "use strict";
         var target = hook.attr("data-tab");
         hook.on('keydown', function (e) {
+            if (app.is_mobile()) {
+                return;
+            }
             if (e.keyCode === 13 || e.keyCode === 9) {
                 if (target) {
                     e.preventDefault();
@@ -106,6 +109,11 @@ var app = {
                 $("#notice").attr("data-click", "NaN");
             }
         });
+    },
+
+    is_mobile: function () {
+        "use strict";
+        return window.innerWidth <= 548;
     }
 };
 
