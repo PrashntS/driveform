@@ -35,12 +35,10 @@ var app = {
         hook.click(function () {
             $("input[name=Workshop]").val(slot_val);
             hook.children("img").addClass("selected");
+            app.render_slot_availability(slot_val);
             setTimeout(function () {
                 hook.children("img").removeClass("selected");
-            }, 2000);
-            setTimeout(function () {
-                app.scroll_to_id("two");
-            }, 200);
+            }, 1000);
         });
     },
 
@@ -80,18 +78,35 @@ var app = {
         }
     },
 
+    init_notice: function () {
+        "use strict";
+        $("#notice").click(function (el) {
+            if ($("#notice").attr("data-click")) {
+                setTimeout(function () {
+                    app.scroll_to_id($("#notice").attr("data-click"));
+                }, 200);
+            }
+        });
+
+    },
+
     render_slot_availability: function (id) {
         "use strict";
+        $("#notice").text("Please Wait");
         $.get("http://localhost:89/php/api/count/" + id, function (data) {
-            //{booked: 3, remains: 37, registrations_accepted: true}
             if (data.registrations_accepted) {
-                $("#notice").text(data.remains + " Seats are remaining in this Slot. Click Here to Proceed to Registration.");
+                $("#notice").html(data.remains + " Seats are remaining in this Slot. <span>Click Here to Proceed to Registration.</span>");
+                $("#notice").attr("data-click", "two");
+            } else {
+                $("#notice").text("Sorry, this slot is not accepting registrations anymore. Please choose another slot.");
+                $("#notice").attr("data-click", "NaN");
             }
         });
     }
 };
 
-//app.scroll_to_id("one");
+app.scroll_to_id("one");
+app.init_notice();
 app.init_nav();
 app.init_slot();
 app.process_input_properties();

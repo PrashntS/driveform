@@ -87,6 +87,8 @@ section {
   section > div {
     position: absolute;
     top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms--transform: translateY(-50%);
     transform: translateY(-50%);
     width: 80%;
     padding: 0 20px;
@@ -202,6 +204,13 @@ section {
     color: #FFFFFF; }
     section.success span, section.success ul {
       font-size: 85%; }
+  section #notice {
+    float: left;
+    cursor: pointer;
+    height: 40px; }
+    section #notice span {
+      color: red;
+      opacity: 1; }
 
 a {
   font-family: Raleway;
