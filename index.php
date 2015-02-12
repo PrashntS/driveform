@@ -25,6 +25,17 @@ $_APP->get('/setup', function () {
     Util\Setup::Database();
 });
 
+$_APP->post('/register', function () use($_APP) {
+    $q = Action\Model::register();
+    if ($q[error]) {
+        $_APP->response->setStatus(400);
+        View\Form\error($q['error_field']);
+    } else {
+        $_APP->response->setStatus(202);
+        View\Form\success($q['reg_id']);
+    }
+});
+
 $_APP->post('/api/register', function() use($_APP) {
     $q = Action\Model::register();
     if ($q[error]) {

@@ -1,9 +1,9 @@
 [submodule "php/vendor"]
-	path = php/vendor/google-api-php-client
+	path = vendor/google-api-php-client
 	url = git@github.com:google/google-api-php-client.git
 [submodule "php/vendor/slim_framework"]
-	path = php/vendor/slim_framework
+	path = vendor/slim_framework
 	url = git@github.com:codeguy/Slim.git
 [submodule "php/vendor/php-google-spreasheet-client"]
-	path = php/vendor/php-google-spreasheet-client
+	path = vendor/php-google-spreasheet-client
 	url = git@github.com:asimlqt/php-google-spreadsheet-client.git

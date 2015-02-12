@@ -6,7 +6,7 @@ function init() {
     \DriveForm\View\head();
     ?>
     <body>
-        <form action="http://localhost:89/php/api/register" method="POST" enctype="multipart/form-data">
+        <form action="/php/register" method="POST" enctype="multipart/form-data">
             <section id="one">
                 <div>
                     <a href="http://autonomi.ducic.ac.in" target="_blank"><img src="img/autonomi.png" class="logo"></a>
@@ -78,6 +78,76 @@ function init() {
         <script type="text/javascript" src="js/jquery-min.js"></script>
         <script type="text/javascript" src="js/app.js"></script>
     </body>
+    </html>
+    <?php
+}
+
+function error($err_list) {
+    \DriveForm\View\head();
+    ?>
+    <body>
+        <section id="six" class="error">
+            <div>
+                <h2>We're Sorry.<br>There was an Error.</h2>
+                <?php
+                if (in_array('Server_Error', $err_list)) {
+                    ?>
+                    <span>We're experiencing a Some technical problems. Please try again later.</span>
+                    <?
+                } elseif (in_array('Workshop', $err_list)) {
+                    ?>
+                    <span>The chosen slot is not accepting any more entries, as all the seats have been registered.</span>
+                    <?
+                } else {
+                    ?>
+                    <span>Following entries were either missing, or contained invalid data:</span>
+                    <ul>
+                    <?php
+                    if (in_array('Name', $err_list)) echo "<li>Name</li>";
+                    if (in_array('Email', $err_list) || in_array('Email_Exists', $err_list)) echo "<li>Email ID</li>";
+                    if (in_array('Contact', $err_list)) echo "<li>Contact Number</li>";
+                    if (in_array('College', $err_list)) echo "<li>College/Institution Name</li>";
+                    if (in_array('Course', $err_list)) echo "<li>Course/Specialization</li>";
+                    if (in_array('DD_Img', $err_list)) echo "<li>Uploaded Image</li>";
+                    if (in_array('DD', $err_list)) echo "<li>DD Number</li>";
+                    if (in_array('Bank', $err_list)) echo "<li>Bank Name</li>";
+                    ?>
+                    </ul>
+                    <?php
+                }
+                ?>
+                <span>Your Registration is NOT ACCEPTED yet. You can Retry with correct data via following link.</span><br>
+                <span>You can also contact us through our <a href="mail-to:autonomi@ducic.ac.in">Email</a>, or <a href="https://facebook.com/autonomi.cic">Facebook</a> handle, in case you need any kind of help.</span><br>
+                <br>
+                <button type="submit" data-target="three">RETRY</button>
+            </div>
+        </section>
+        <script type="text/javascript" src="js/jquery-min.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+    </body>
+    </html>
+    <?php
+}
+
+function success($reg_id) {
+    \DriveForm\View\head();
+    ?>
+    <body>
+    <section id="six" class="success">
+        <div>
+            <h2>Success!<br>Your Registration has been Accepted.</h2>
+            <h3>Registration ID: #<?php echo $reg_id; ?></h3>
+            <p>Here's what's going to happen next:</p>
+            <ol>
+                <li>We'll Email you an acknowledgment letter within 5 minutes of the receipt this form.</li>
+                <li>We'll Review your registration and confirm the alloted slot, within the next 72 hours.</li>
+            </ol>
+
+            <span>In any case, if you notice that the information provided by you is incorrect, you can contact us on our <a href="mail-to:autonomi@ducic.ac.in">Email</a>, or the <a href="https://facebook.com/autonomi.cic">Facebook</a> handle.</span>
+        </div>
+    </section>
+    </body>
+    </html>
     <?php
 }
 

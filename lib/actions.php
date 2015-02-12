@@ -56,10 +56,11 @@ class Model {
             'DD_URI' => $upload[1]]);
 
         if ((int)$insert->errorCode()[0] == 0) {
+            $return["reg_id"] = $_POST['Workshop']."-".substr(md5($_POST['Name'].$_POST['Email']), 0, 5);
             return $return;
         } else {
             $return["error"] = true;
-            $return["error_field"] = ["Server Error"];
+            $return["error_field"] = ["Server_Error"];
             return $return;
         }
     }
