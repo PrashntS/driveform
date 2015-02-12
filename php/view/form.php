@@ -1,9 +1,9 @@
 <?php
-namespace DriveForm\View;
+namespace DriveForm\View\Form;
 include dirname(__FILE__).'/commons.php';
 
 function init() {
-    head();
+    \DriveForm\View\head();
     ?>
     <body>
         <form action="http://localhost:89/php/api/register" method="POST" enctype="multipart/form-data">

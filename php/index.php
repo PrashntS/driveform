@@ -8,6 +8,7 @@ require 'vendor/slim_framework/Slim/Slim.php';
 require 'lib/database.php';
 require 'lib/util.php';
 require 'lib/actions.php';
+require 'view/form.php';
 
 \Slim\Slim::registerAutoloader();
 
@@ -17,7 +18,7 @@ $_STATE  = new \DriveForm\Delegate\State();
 $_APP    = new \Slim\Slim();
 
 $_APP->get('/', function () {
-
+    View\Form\init();
 });
 
 $_APP->get('/setup', function () {
