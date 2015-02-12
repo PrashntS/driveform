@@ -5,7 +5,7 @@ html,body
     position: relative
     overflow: hidden
     @media(max-width: 548px)
-        overflow: auto
+        overflow: hidden
 
 
 section
@@ -18,6 +18,8 @@ section
         transform: translateY(-50%)
         width: 80%
         padding: 0 20px
+        overflow: scroll
+        max-height: 100vh
 
         @media(min-width: 548px)
             font-size: 120%
@@ -96,14 +98,14 @@ section
 
                 &:hover
                     opacity: 1
-                    transition: opacity 0.3s
+                    //transition: opacity 0.3s
 
     span
         opacity: .6
 
     &#one
         img.logo
-            height: 60px
+            height: 40px
             margin-right: 10px
         background: #1A237E
         background: url(/img/bg-hatches.png) fixed
@@ -120,9 +122,16 @@ section
     &#five
         background: #311B92
         color: #FFFFFF
-    &.six
-        background: url(/img/treeline.png) fixed
-        background: green
+    &.error
+        background: #B71C1C
+        color: #FFFFFF
+        span, ul
+            font-size: 85%
+    &.success
+        background: #388E3C
+        color: #FFFFFF
+        span, ul
+            font-size: 85%
 
     font-family: Raleway
 

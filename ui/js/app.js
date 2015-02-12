@@ -1,4 +1,4 @@
-/* jshint: $ */
+/*global $, console, window*/
 
 var app = {
 
@@ -15,7 +15,7 @@ var app = {
         $('html, body').animate({
             scrollTop: $("#" + id).offset().top
         }, 500);
-        setTimeout(function() {
+        setTimeout(function () {
             $("#" + id).find("input").first().focus();
         }, 450);
     },
@@ -40,7 +40,7 @@ var app = {
             }, 2000);
             setTimeout(function () {
                 app.scroll_to_id("two");
-            }, 200)
+            }, 200);
         });
     },
 
@@ -54,18 +54,19 @@ var app = {
     },
 
     tab_return_handle: function (hook) {
+        "use strict";
         var target = hook.attr("data-tab");
-        hook.on('keydown', function(e) {
-            if (e.keyCode == 13 || e.keyCode == 9) {
+        hook.on('keydown', function (e) {
+            if (e.keyCode === 13 || e.keyCode === 9) {
                 if (target) {
                     e.preventDefault();
                     app.scroll_to_id(target);
                 }
             }
-            if ((e.shiftKey && e.keyCode == 9) ||
-                (e.shiftKey && e.keyCode == 13)) {
+            if ((e.shiftKey && e.keyCode === 9) ||
+                (e.shiftKey && e.keyCode === 13)) {
                 e.preventDefault();
-            } 
+            }
         });
     },
 
@@ -77,11 +78,20 @@ var app = {
         for (i = 0; i < hook.length; i += 1) {
             app.tab_return_handle(hook.eq(i));
         }
+    },
+
+    render_slot_availability: function (id) {
+        "use strict";
+        $.get("http://localhost:89/php/api/count/" + id, function (data) {
+            //{booked: 3, remains: 37, registrations_accepted: true}
+            if (data.registrations_accepted) {
+                $("#notice").text(data.remains + " Seats are remaining in this Slot. Click Here to Proceed to Registration.");
+            }
+        });
     }
 };
 
-app.scroll_to_id("one");
+//app.scroll_to_id("one");
 app.init_nav();
 app.init_slot();
-
 app.process_input_properties();

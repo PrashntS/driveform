@@ -79,7 +79,7 @@ html, body {
   overflow: hidden; }
 @media(max-width: 548px) {
   html, body {
-    overflow: auto; } }
+    overflow: hidden; } }
 section {
   min-height: 100vh;
   position: relative;
@@ -89,7 +89,9 @@ section {
     top: 50%;
     transform: translateY(-50%);
     width: 80%;
-    padding: 0 20px; }
+    padding: 0 20px;
+    overflow: scroll;
+    max-height: 100vh; }
 @media(min-width: 548px) {
   section > div {
     font-size: 120%;
@@ -168,8 +170,7 @@ section {
       opacity: 1;
       border-radius: 8px; }
     section ul[data-type="select"] li img:hover {
-      opacity: 1;
-      transition: opacity 0.3s; }
+      opacity: 1; }
   section span {
     opacity: 0.6; }
   section#one {
@@ -177,7 +178,7 @@ section {
     background: url(/img/bg-hatches.png) fixed;
     color: #FFFFFF; }
     section#one img.logo {
-      height: 60px;
+      height: 40px;
       margin-right: 10px; }
   section#two {
     background: #880E4F;
@@ -191,9 +192,16 @@ section {
   section#five {
     background: #311B92;
     color: #FFFFFF; }
-  section.six {
-    background: url(/img/treeline.png) fixed;
-    background: green; }
+  section.error {
+    background: #B71C1C;
+    color: #FFFFFF; }
+    section.error span, section.error ul {
+      font-size: 85%; }
+  section.success {
+    background: #388E3C;
+    color: #FFFFFF; }
+    section.success span, section.success ul {
+      font-size: 85%; }
 
 a {
   font-family: Raleway;

@@ -40,6 +40,7 @@ $_APP->get('/api/count/:id', function($id) use($_APP) {
         $Handle = new \DriveForm\Database\Client();
     $_APP->response->setStatus(200);
     $_APP->response->headers->set('Content-Type', 'application/json');
+    $_APP->response->headers->set('Access-Control-Allow-Origin', '*');
     $_APP->response->setBody(json_encode([
         "booked" => $q[0],
         "remains" => $q[1],
