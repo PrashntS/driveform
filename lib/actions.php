@@ -97,3 +97,10 @@ class Model {
         } else return [false];
     }
 }
+
+class Email {
+    public static function acknowledge($data) {
+        $message = sprintf("Dear, %s,\r\nThis email is to acknowledge that we've successfully received your registration.\r\n", $data['Name']);
+        $message.= sprintf("Please note that your Demand Draft needs to be sent to us for the ");
+    }
+}
