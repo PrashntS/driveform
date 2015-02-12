@@ -13,7 +13,7 @@ function head() {
         <title>Register</title>
         <meta name="description" content="">
 
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="/view/ui_assets/css/main.css">
         <link rel="canonical" href="http://prashnts.in/">
     </head>
     <?php

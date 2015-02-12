@@ -6,24 +6,24 @@ function init() {
     \DriveForm\View\head();
     ?>
     <body>
-        <form action="/php/register" method="POST" enctype="multipart/form-data">
+        <form action="/register" method="POST" enctype="multipart/form-data">
             <section id="one">
                 <div>
-                    <a href="http://autonomi.ducic.ac.in" target="_blank"><img src="img/autonomi.png" class="logo"></a>
-                    <a href="http://pattern.ducic.ac.in" target="_blank"><img src="img/lpe.png" class="logo"></a>
+                    <a href="http://autonomi.ducic.ac.in" target="_blank"><img src="/view/ui_assets/img/autonomi.png" class="logo"></a>
+                    <a href="http://pattern.ducic.ac.in" target="_blank"><img src="/view/ui_assets/img/lpe.png" class="logo"></a>
                     <h2>Please choose the Workshop you wish to register into</h2>
                     <ul class="inline lg" data-type="select">
                         <li data-workshop="3D1" data-type="slot">
-                            <img src="img/128.png">
+                            <img src="/view/ui_assets/img/128.png">
                         </li>
                         <li data-workshop="3D2" data-type="slot">
-                            <img src="img/130.png">
+                            <img src="/view/ui_assets/img/130.png">
                         </li>
                         <li data-workshop="RB1" data-type="slot">
-                            <img src="img/129.png">
+                            <img src="/view/ui_assets/img/129.png">
                         </li>
                         <li data-workshop="RB2" data-type="slot">
-                            <img src="img/132.png">
+                            <img src="/view/ui_assets/img/132.png">
                         </li>
                     </ul><br>
                     <span id="notice"></span><br>
@@ -75,8 +75,8 @@ function init() {
                 </div>
             </section>
         </form>
-        <script type="text/javascript" src="js/jquery-min.js"></script>
-        <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="/view/ui_assets/js/jquery-min.js"></script>
+        <script type="text/javascript" src="/view/ui_assets/js/app.js"></script>
     </body>
     </html>
     <?php
@@ -119,11 +119,11 @@ function error($err_list) {
                 <span>Your Registration is NOT ACCEPTED yet. You can Retry with correct data via following link.</span><br>
                 <span>You can also contact us through our <a href="mail-to:autonomi@ducic.ac.in">Email</a>, or <a href="https://facebook.com/autonomi.cic">Facebook</a> handle, in case you need any kind of help.</span><br>
                 <br>
-                <button type="submit" data-target="three">RETRY</button>
+                <a href="/"><button type="submit" data-target="three">RETRY</button></a>
             </div>
         </section>
-        <script type="text/javascript" src="js/jquery-min.js"></script>
-        <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="/view/ui_assets/js/jquery-min.js"></script>
+        <script type="text/javascript" src="/view/ui_assets/js/app.js"></script>
     </body>
     </html>
     <?php
@@ -146,6 +146,8 @@ function success($reg_id) {
             <span>In any case, if you notice that the information provided by you is incorrect, you can contact us on our <a href="mail-to:autonomi@ducic.ac.in">Email</a>, or the <a href="https://facebook.com/autonomi.cic">Facebook</a> handle.</span>
         </div>
     </section>
+        <script type="text/javascript" src="/view/ui_assets/js/jquery-min.js"></script>
+        <script type="text/javascript" src="/view/ui_assets/js/app.js"></script>
     </body>
     </html>
     <?php

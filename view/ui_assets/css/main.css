@@ -176,8 +176,8 @@ section {
   section span {
     opacity: 0.6; }
   section#one {
-    background: #1A237E;
-    background: url(/img/bg-hatches.png) fixed;
+    background: #001D33;
+    background: url(/view/ui_assets/img/bg-hatches.png) fixed;
     color: #FFFFFF; }
     section#one img.logo {
       height: 40px;

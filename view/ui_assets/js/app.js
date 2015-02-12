@@ -59,7 +59,11 @@ var app = {
                 if (target) {
                     e.preventDefault();
                     app.scroll_to_id(target);
+                    return;
                 }
+            }
+            if (e.keyCode === 13) {
+                e.preventDefault();
             }
             if ((e.shiftKey && e.keyCode === 9) ||
                 (e.shiftKey && e.keyCode === 13)) {
@@ -93,7 +97,7 @@ var app = {
     render_slot_availability: function (id) {
         "use strict";
         $("#notice").text("Please Wait");
-        $.get("http://localhost:89/php/api/count/" + id, function (data) {
+        $.get("/api/count/" + id, function (data) {
             if (data.registrations_accepted) {
                 $("#notice").html(data.remains + " Seats are remaining in this Slot. <span>Click Here to Proceed to Registration.</span>");
                 $("#notice").attr("data-click", "two");
