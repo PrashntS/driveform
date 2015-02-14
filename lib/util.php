@@ -36,7 +36,7 @@ class Setup {
 }
 
 class Validate {
-    function Alphanumeric($Candidate, $LengthMin = 0, $LengthMax = 0) {
+    public static function Alphanumeric($Candidate, $LengthMin = 0, $LengthMax = 0) {
         $PatternTail = "";
         
         if ($LengthMin >= 0 && $LengthMax > $LengthMin) $PatternTail = "{".$LengthMin.",".$LengthMax."}";
@@ -48,7 +48,7 @@ class Validate {
         return (bool)(preg_match($Pattern, $Candidate));
     }
 
-    function Email($Candidate, $_Override = True) {
+    public static function Email($Candidate, $_Override = True) {
         /**
          * EMail RegEx pattern. Modified to span in multiple lines.
          * @copyright Michael Rushton 2009-10 http://squiloople.com/

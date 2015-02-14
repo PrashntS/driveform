@@ -70,7 +70,8 @@ class Model {
         $Handle = new \DriveForm\Database\Client();
         $result = $Handle->query($query, ['Workshop' => $id])->fetch(\PDO::FETCH_ASSOC);
         $count = (int)$result['reg_count'];
-        return [$count, 40 - $count, $count < 40];
+        $max_avail = ($id == "3D1" || $id == "3D2") ? 20 : (($id == "RB1" || $id == "RB2") ? 40 : 0);
+        return [$count, $max_avail - $count, $count < $max_avail];
     }
 
     public static function check_email($email) {
