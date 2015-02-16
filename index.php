@@ -13,7 +13,6 @@ require 'view/form.php';
 \Slim\Slim::registerAutoloader();
 
 $_CONFIG = new \DriveForm\Delegate\Config();
-$_AUTH   = new \DriveForm\Delegate\Service_Auth();
 $_STATE  = new \DriveForm\Delegate\State();
 $_APP    = new \Slim\Slim();
 
@@ -32,6 +31,7 @@ $_APP->post('/register', function () use($_APP) {
         View\Form\error($q['error_field']);
     } else {
         $_APP->response->setStatus(202);
+        Action\Email::acknowledge();
         View\Form\success($q['reg_id']);
     }
 });
@@ -41,6 +41,7 @@ $_APP->post('/api/register', function() use($_APP) {
     if ($q[error]) {
         $_APP->response->setStatus(400);
     } else {
+        Action\Email::acknowledge();
         $_APP->response->setStatus(202);
     }
     $_APP->response->headers->set('Content-Type', 'application/json');
