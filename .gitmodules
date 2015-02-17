@@ -7,3 +7,6 @@
 [submodule "php/vendor/php-google-spreasheet-client"]
 	path = vendor/php-google-spreasheet-client
 	url = git@github.com:asimlqt/php-google-spreadsheet-client.git
+[submodule "vendor/PHPMailer"]
+	path = vendor/PHPMailer
+	url = git@github.com:PHPMailer/PHPMailer.git
