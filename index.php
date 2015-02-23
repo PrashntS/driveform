@@ -5,6 +5,7 @@ require 'lib/delegate.php';
 require 'lib/exceptions.php';
 require 'vendor/google-api-php-client/autoload.php';
 require 'vendor/slim_framework/Slim/Slim.php';
+require 'vendor/PHPMailer/PHPMailerAutoload.php';
 require 'lib/database.php';
 require 'lib/util.php';
 require 'lib/actions.php';
@@ -31,7 +32,7 @@ $_APP->post('/register', function () use($_APP) {
         View\Form\error($q['error_field']);
     } else {
         $_APP->response->setStatus(202);
-        Action\Email::acknowledge();
+        Action\Email::acknowledge($q);
         View\Form\success($q['reg_id']);
     }
 });
@@ -59,6 +60,42 @@ $_APP->get('/api/count/:id', function($id) use($_APP) {
         "remains" => $q[1],
         "registrations_accepted" => $q[2]
     ]));
+});
+
+$_APP->get('/uploaded_dd/:name', function($name) use($_APP) {
+    $pic = dirname(__FILE__).'/user/'.$name;
+
+    if (file_exists($pic) && is_readable($pic)) {
+        $ext = explode(".", $name);
+        switch ($ext[1]) {
+            case 'jpg':
+            case 'jpeg':
+                $mime = 'image/jpeg';
+                break;
+            case 'gif':
+                $mime = 'image/gif';
+                break;
+            case 'png':
+                $mime = 'image/png';
+                break;
+            case 'tiff':
+            case 'tif':
+                $mime = 'image/tiff';
+                break;
+            default:
+                $mime = false;
+        }
+        $_APP->response->headers->set('Content-type', $mime);
+        $_APP->response->headers->set('Content-length', filesize($pic));
+        $file = @ fopen($pic, 'rb');
+        if ($file) {
+            echo file_get_contents($file);
+        }
+
+    } else {
+        //$_APP->response->setStatus(404);
+        echo "File does not exists.";
+    }
 });
 
 $_APP->run();
